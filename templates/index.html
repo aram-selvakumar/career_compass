@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Career Compass - Resume Matcher</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Career Compass 🧭</h1>
+            <p>Find out how well your resume matches the job description.</p>
+        </header>
+
+        {% with messages = get_flashed_messages() %}
+          {% if messages %}
+            <div class="flash-messages">
+              {% for message in messages %}
+                <div class="alert">{{ message }}</div>
+              {% endfor %}
+            </div>
+          {% endif %}
+        {% endwith %}
+
+        <div class="card">
+            <form action="/result" method="post" enctype="multipart/form-data">
+                <div class="form-group">
+                    <label for="resume">Upload Resume (PDF or DOCX)</label>
+                    <div class="file-upload-wrapper">
+                        <input type="file" name="resume" id="resume" accept=".pdf,.docx" required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="job_description">Paste Job Description</label>
+                    <textarea name="job_description" id="job_description" rows="8" placeholder="Paste the job description here..." required></textarea>
+                </div>
+
+                <div class="form-actions">
+                    <button type="submit" class="btn-primary">Analyze Match 🚀</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

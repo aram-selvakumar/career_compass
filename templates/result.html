@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Analysis Results - Career Compass</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <h1>Analysis Result 📊</h1>
+            <p>For file: <strong>{{ filename }}</strong></p>
+        </header>
+
+        <div class="results-grid">
+            <div class="card score-card">
+                <h2>Resume Match</h2>
+                <div class="score-circle" style="--score: {{ skill_score }}%">
+                    <span>{{ skill_score }}%</span>
+                </div>
+                <p>Based on Skills</p>
+            </div>
+
+            <div class="card score-card">
+                <h2>ATS Score</h2>
+                <div class="score-circle" style="--score: {{ match_score }}%">
+                    <span>{{ match_score }}%</span>
+                </div>
+                <p>Content Similarity</p>
+            </div>
+        </div>
+
+        <div class="card details-card">
+            <h2>Missing Skills Analysis</h2>
+
+            <div class="skills-section">
+                <h3>❌ Missing Skills</h3>
+                {% if missing_skills %}
+                <div class="skill-tags">
+                    {% for skill in missing_skills %}
+                    <span class="tag missing">{{ skill }}</span>
+                    {% endfor %}
+                </div>
+                {% else %}
+                <p class="empty-state">Great job! No key skills missing from our list.</p>
+                {% endif %}
+            </div>
+
+            <div class="skills-section" style="margin-top: 1.5rem; border-top: 1px solid #eee; padding-top: 1rem;">
+                <h3>✅ Matched Skills</h3>
+                {% if matched_skills %}
+                <div class="skill-tags">
+                    {% for skill in matched_skills %}
+                    <span class="tag matched">{{ skill }}</span>
+                    {% endfor %}
+                </div>
+                {% else %}
+                <p class="empty-state">No matching skills found.</p>
+                {% endif %}
+            </div>
+        </div>
+
+        <div class="card suggestions-card">
+            <h2>final Feedback</h2>
+            <ul>
+                {% if suggestions %}
+                {% for suggestion in suggestions %}
+                <li>{{ suggestion }}</li>
+                {% endfor %}
+                {% else %}
+                <li>Your resume looks strong! Good luck with your application.</li>
+                {% endif %}
+            </ul>
+        </div>
+
+        <div class="actions">
+            <a href="/" class="btn-secondary">Check Another Resume</a>
+        </div>
+    </div>
+</body>
+
+</html>
